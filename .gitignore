@@ -1,0 +1,8 @@
+node_modules
+output.csv
+output.dot
+output.png
+
+!algorithms/static/javascript-call-graph/node_modules
+!algorithms/nativecalls/javascript-call-graph/node_modules
+
