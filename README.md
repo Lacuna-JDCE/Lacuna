@@ -15,6 +15,7 @@ Lacuna processes a webapplication by first finding all JavaScript code (based on
 
 ### Technical overview
 Because no single analysis tool can ever be certain it found the complete call graph, we start out with a complete digraph (i.e. all nodes (functions) are connected). We mark these edges as _constructed_. Each analysis tool ('analyzer') is allowed to mark edges between functions, if it thinks the function is called. In the end, all edges marked only as _constructed_ are removed. An extra node is added to each graph, called the _base caller node_, which represents calling functions from the global scope.
+
 ![Example function graph](example_graph.png)
 
 
@@ -22,7 +23,8 @@ Because no single analysis tool can ever be certain it found the complete call g
 
 
 ## Restrictions
-Lacuna does not work with ES6 modules. If you're using modules, consider using [Rollup](https://github.com/rollup/rollup). Lacuna also assumes the webapp resides in a folder and is valid (i.e. has no JS parse errors). Some analyzers have additional requirements, as indicated below.
+Lacuna does not work with ES6 modules. If you're using modules, consider using an ES6 module bundler like [Rollup](https://github.com/rollup/rollup).
+Lacuna also assumes the webapp resides in a folder and is valid (i.e. has no JS parse errors). Some analyzers have additional requirements, as indicated below.
 
 
 

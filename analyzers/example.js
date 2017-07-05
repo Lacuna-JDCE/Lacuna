@@ -24,7 +24,7 @@ module.exports = function()
 	{
 		// First, run whatever tool this adapter is for, on the data we have (see the [settings] object.
 		// This should give us a list (whatever data structure is available) of functions that are reachable from which function.
-		// Place any code required in a folder with the name of the adapter (so in our case in 'analyzers/example/) and include from there.
+		// Place any code required in a folder with the name of the adapter (so in this case in 'analyzers/example/') and include from there.
 		/*
 			let result = RunSomeTool(settings.scripts);
 		*/
