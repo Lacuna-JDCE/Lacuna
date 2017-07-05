@@ -226,15 +226,29 @@ module.exports =
 			}
 		};
 
-		// Run each analyzer in turn, letting it edit the graph (mark edges).
-		async_loop(analyzers.functions, analyzer_settings, function(analyzer_run_info)
+		if(analyzers.functions.length > 0)
 		{
-			stats.analyzer_info = analyzer_run_info.reduce(function(acc, current)
+			// Run each analyzer in turn, letting it edit the graph (mark edges).
+			async_loop(analyzers.functions, analyzer_settings, function(analyzer_run_info)
 			{
-				acc.push( current[0] + ': ' + current[1] );
-				return acc;
-			}, []).join(', ');
+				stats.analyzer_info = analyzer_run_info.reduce(function(acc, current)
+				{
+					acc.push( current[0] + ': ' + current[1] );
+					return acc;
+				}, []).join(', ');
 
+				// Once we are done with analyzing the source, start processing the marked graph.
+				process_marked_graph();
+			});
+		}else{
+			// If there are no analyzers set, just process the graph.
+			// This is useful for e.g. call graph image generation.
+			process_marked_graph();
+		}
+
+
+		function process_marked_graph()
+		{
 			// Once we're done with all the analyzers, remove any edge that was constructed.
 			if(!settings.noremove)
 			{
@@ -260,7 +274,8 @@ module.exports =
 			}
 
 			return_results();
-		});
+		}
+
 
 
 		function return_results()
