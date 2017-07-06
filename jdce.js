@@ -41,7 +41,7 @@ function get_available_analyzers(folder)
 
 function get_analyzer_data(filter)
 {
-	const folder = 'analyzers';
+	const folder = path.join(__dirname, '/analyzers');
 
 	let fingerprints = [];
 	let id = CONSTRUCTED_EDGE.value;	// first value.
@@ -55,7 +55,8 @@ function get_analyzer_data(filter)
 	{
 		if( available_analyzers.indexOf( name ) != -1 )
 		{
-			let require_name = './' + path.join(folder, name);
+			let require_name = path.join(folder, name);
+
 			let analyzer = require(require_name);
 			let instance = new analyzer();
 
