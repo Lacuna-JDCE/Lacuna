@@ -127,6 +127,7 @@ if( ! file_system.existsSync(settings.html_path) )
 if( settings.analyzer.length == 0 )
 {
 	console.log('Warning: no analyzer(s) specified. No functions will be removed. Use the --analyzer command line option to specify the algorithms to use.');
+	settings.noremove = true;
 }
 
 
