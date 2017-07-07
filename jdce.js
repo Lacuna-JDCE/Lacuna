@@ -236,7 +236,7 @@ module.exports =
 				{
 					acc.push( current[0] + ': ' + current[1] );
 					return acc;
-				}, []).join(', ');
+				}, []).join(';');
 
 				// Once we are done with analyzing the source, start processing the marked graph.
 				process_marked_graph();
