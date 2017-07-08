@@ -254,24 +254,30 @@ module.exports =
 			if(!settings.noremove)
 			{
 				nodes = GraphTools.remove_constructed_edges(nodes, CONSTRUCTED_EDGE.value);
+
+
+				let disconnected_nodes = GraphTools.get_disconnected_nodes(nodes);
+
+				// Do the actual work: remove all nodes that are disconnected (= functions without incoming edges = uncalled functions).
+				remove_uncalled_functions(disconnected_nodes, settings.directory, settings.html_path);
+
+				// The number of removed functions equals the number of nodes without any incoming edges (a disconnected node).
+				// The base caller node is never disconnected, so don't subtract from this.
+				stats.functions_removed = disconnected_nodes.length;
+			}else{
+				stats.functions_removed = 0;
 			}
 
-			let disconnected_nodes = GraphTools.get_disconnected_nodes(nodes);
-
-			// Do the actual work: remove all nodes that are disconnected (= functions without incoming edges = uncalled functions).
-			remove_uncalled_functions(disconnected_nodes, settings.directory, settings.html_path);
-
-			// The number of removed functions equals the number of nodes without any incoming edges (a disconnected node).
-			// The base caller node is never disconnected, so don't subtract from this.
-			stats.functions_removed = disconnected_nodes.length;
-
-			// Return the graph image too.
-			if(settings.show_disconnected)
+			if(settings.graph)
 			{
-				stats.graph = GraphTools.output_function_graph(nodes, analyzers.fingerprints);
-			}else{
-				// Only show reachable nodes.
-				stats.graph = GraphTools.output_function_graph(GraphTools.get_connected_nodes(nodes), analyzers.fingerprints);
+				// Return the graph image too.
+				if(settings.show_disconnected)
+				{
+					stats.graph = GraphTools.output_function_graph(nodes, analyzers.fingerprints);
+				}else{
+					// Only show reachable nodes.
+					stats.graph = GraphTools.output_function_graph(GraphTools.get_connected_nodes(nodes), analyzers.fingerprints);
+				}
 			}
 
 			return_results();

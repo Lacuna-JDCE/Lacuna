@@ -139,6 +139,7 @@ try
 		html_path: settings.html_path,
 		analyzer: settings.analyzer,
 		noremove: settings.noremove,
+		graph: settings.graph,
 		show_disconnected: settings.entire,
 		timeout: settings.timeout,
 		pace: settings.pace,
