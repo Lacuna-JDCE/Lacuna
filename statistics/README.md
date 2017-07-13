@@ -53,3 +53,9 @@ node statistics.js <type>
 Where _<type>_ is _static_, _dynamic_ or _hybrid_.
 
 This should output a LaTeX table (for analysis type _<type>_) for each entry in the `list.txt` file.
+
+You can also run
+```
+node averages.js <type>
+```
+for the average and median recall and precision.
